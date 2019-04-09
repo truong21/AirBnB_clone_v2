@@ -10,8 +10,8 @@ from pathlib import Path
 time = datetime.now()
 year = time.strftime("%Y")
 filename = "web_static_{}{}{}{}{}{}".format(year, time.month, time.day,
-                                                  time.hour, time.minute,
-                                                  time.second)
+                                            time.hour, time.minute,
+                                            time.second)
 
 
 def do_pack():
