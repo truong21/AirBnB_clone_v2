@@ -14,7 +14,7 @@ year = time.strftime("%Y")
 filename = "web_static_{}{}{}{}{}{}".format(year, time.month, time.day,
                                             time.hour, time.minute,
                                             time.second)
-env.hosts = ['ubuntu@35.237.211.153', 'ubuntu@34.73.63.239']
+env.hosts = ['ubuntu@35.185.93.122', 'ubuntu@34.73.63.239']
 env.key_filename = "~/.ssh/id_rsa"
 
 
