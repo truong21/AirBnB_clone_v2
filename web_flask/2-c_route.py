@@ -24,6 +24,7 @@ def hello_hbnb():
 @app.route("/c/<text>", strict_slashes=False)
 def display_C(text):
     """ prints "C" followed by value of the text var """
+    text = text.replace("_", " ")
     return "C %s" % text
 
 
