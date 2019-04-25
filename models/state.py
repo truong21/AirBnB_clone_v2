@@ -6,6 +6,7 @@ from models.base_model import BaseModel, Base
 from sqlalchemy.orm import relationship
 from models.city import City
 
+
 class State(BaseModel, Base):
     """This is the class for State
     Attributes:
@@ -14,7 +15,8 @@ class State(BaseModel, Base):
     __tablename__ = "states"
 
     name = Column(String(128), nullable=False)
-    cities = relationship("City", backref="state", cascade="all, delete-orphan")
+    cities = relationship("City", backref="state",
+                          cascade="all, delete-orphan")
 
     if os.getenv("HBNB_TYPE_STORAGE") == "fs":
         @property
