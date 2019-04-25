@@ -42,21 +42,22 @@ class DBStorage:
 
         if cls:
             for obj in self.__session.query(eval(cls)):
-                key = "{}.{}".format(type(obj).__name__, obj.id)
+                key = "{}.{}".format(obj.__class__.__name__, obj.id)
                 my_dict[key] = obj
         else:
-            for subcls in Base.__subclasses__():
+            for subcls in classes:
                 for obj in self.__session.query(subcls):
-                    key = "{}.{}".format(type(obj).__name__, obj.id)
+                    key = "{}.{}".format(obj.__class__.__name__, obj.id)
                     my_dict[key] = obj
 
         return my_dict
 
     def new(self, obj):
-        if obj:
-            self.__session.add(obj)
+        """ Set in obj as a database entry """
+        self.__session.add(obj)
 
     def save(self):
+        """ commit saves to database """
         self.__session.commit()
 
     def delete(self, obj=None):

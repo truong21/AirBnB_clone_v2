@@ -27,10 +27,8 @@ class FileStorage:
         """
         my_dict = {}
         if cls:
-            if isinstance(cls, str) is False:
-                cls = cls.__name__
-            for k, v in self.__objects.items():
-                if cls == k.split('.')[0]:
+            for key, value in self.__objects.items():
+                if value.__class__.__name__ == cls:
                     my_dict[k] = v
             return my_dict
         else:
@@ -43,13 +41,14 @@ class FileStorage:
         """
         if obj:
             key = "{}.{}".format(type(obj).__name__, obj.id)
-            self.__objects[key] = obj
+            value_dict = obj
+            FileStorage.__objects[key] = obj
 
     def save(self):
         """serialize the file path to JSON file path
         """
         my_dict = {}
-        for key, value in self.__objects.items():
+        for key, value in FileStorage.__objects.items():
             my_dict[key] = value.to_dict()
         with open(self.__file_path, 'w', encoding="UTF-8") as f:
             json.dump(my_dict, f)
@@ -58,7 +57,7 @@ class FileStorage:
         """serialize the file path to JSON file path
         """
         try:
-            with open(self.__file_path, 'r', encoding="UTF-8") as f:
+            with open(FileStorage.__file_path, 'r', encoding="UTF-8") as f:
                 for key, value in (json.load(f)).items():
                     value = eval(value["__class__"])(**value)
                     self.__objects[key] = value
@@ -69,7 +68,7 @@ class FileStorage:
         """delete obj from __objects if it's inside
         """
         if obj:
-            key = "{}.{}".format(type(obj).__name__, obj.id)
+            key = "{}.{}".format(obj.__class__.__name__, obj.id)
             del self.__objects[key]
             self.save()
 
