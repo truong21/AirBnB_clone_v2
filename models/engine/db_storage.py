@@ -41,12 +41,12 @@ class DBStorage:
         my_dict = {}
 
         if cls:
-            for obj in self.__session.query(eval(cls).all()):
+            for obj in self.__session.query(eval(cls)):
                 key = "{}.{}".format(type(obj).__name__, obj.id)
                 my_dict[key] = obj
         else:
             for subcls in Base.__subclasses__():
-                for obj in self.__session.query(subcls).all():
+                for obj in self.__session.query(subcls):
                     key = "{}.{}".format(type(obj).__name__, obj.id)
                     my_dict[key] = obj
 
@@ -71,4 +71,4 @@ class DBStorage:
 
     def close(self):
         """ removes a private session attribute """
-        self.__session.remove()
+        self.__session.close()
