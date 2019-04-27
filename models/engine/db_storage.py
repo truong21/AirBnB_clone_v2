@@ -41,12 +41,12 @@ class DBStorage:
         my_dict = {}
 
         if cls:
-            for obj in self.__session.query(eval(cls)):
+            for obj in self.__session.query(eval(cls)).all():
                 key = "{}.{}".format(obj.__class__.__name__, obj.id)
                 my_dict[key] = obj
         else:
             for subcls in classes:
-                for obj in self.__session.query(subcls):
+                for obj in self.__session.query(subcls).all():
                     key = "{}.{}".format(obj.__class__.__name__, obj.id)
                     my_dict[key] = obj
 
