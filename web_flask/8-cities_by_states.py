@@ -22,9 +22,7 @@ def display_states():
 def display_cities():
     """ display cities objects linked to the State """
     states = storage.all("State").values()
-    cities = storage.all("City").values()
-    return render_template('8-cities_by_states.html', states=states,
-                           cities=cities)
+    return render_template('8-cities_by_states.html', states=states)
 
 
 @app.teardown_appcontext
